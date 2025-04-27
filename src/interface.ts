@@ -50,30 +50,4 @@ export class DiscordOAuth {
             [token]
         );
     }
-
-    public static async modifyCurrentUser(token: string, nickname: string, avatar?: string, banner?: string) {
-        let encodedAvatar;
-        let encodedBanner;
-        try {
-            // if (avatar) {
-            //     encodedAvatar = imageToBase64(avatar)
-            // }
-            // if (banner) {
-            //     encodedBanner = imageToBase64(banner)
-            // }
-        } catch (e) {
-            return new DiscordApiResult("error", {"error": "Failed to convert image to Base64. Check path. Image must be .jpeg format"});
-        }
-        const user = await DiscordApiCore.fetch(
-            "/users/@me",
-            "PATCH",
-            {
-                "username": nickname,
-                "avatar": encodedAvatar,
-                "banner": encodedBanner
-            }
-        )
-        return user;
-    }
-
 }

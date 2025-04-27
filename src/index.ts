@@ -1,3 +1,3 @@
-import {DiscordOAuth} from "./interface";
+import {DiscordOAuth} from "./interface.js";
 
 export default DiscordOAuth;
