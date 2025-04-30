@@ -51,9 +51,24 @@ export namespace DiscordOAuth {
                 [token]
             );
         }
+
+        /**
+         * Get current user's guilds list. Maximum is 200 guilds. Read more info here https://discord.com/developers/docs/resources/user#get-current-user-guilds
+         * @param token
+         */
+        export async function getCurrentUserGuilds(token: string): Promise<DiscordApiResult> {
+            return await DiscordApiCore.fetch(
+                "/users/@me/guilds",
+                "GET",
+                {},
+                [token]
+            )
+        }
+
         // fuck discord, update ur fucking docs to actual info
         /**
-         * Get current user guild member. Check discord docs for more info. https://discord.com/developers/docs/resources/user#get-current-user-guild-member
+         * Get current user guild member. Requires `guilds.members.read` auth scope
+         * Check discord docs for more info. https://discord.com/developers/docs/resources/user#get-current-user-guild-member
          * @param token
          * @param guildId
          */

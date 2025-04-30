@@ -1,10 +1,11 @@
 {
   "name": "@rashingpro/easy-discord-oauth",
-  "version": "0.0.1-alpha",
+  "version": "0.0.2-alpha",
   "description": "Working with Discord OAuth has never been so easy!",
   "keywords": [
     "discord",
     "oauth",
+    "api",
     "typescript"
   ],
   "repository": {
