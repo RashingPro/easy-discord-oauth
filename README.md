@@ -30,6 +30,7 @@ const tokenRes = await DiscordOAuth.exchangeCode(
     "client id",
     "client secret"
 )
+const token = tokenRes.data["access_token"]
 ```
 This (and any other method in package) returns object of class `DiscordApiResult`:
 ```typescript
