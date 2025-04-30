@@ -51,24 +51,38 @@ export namespace DiscordOAuth {
                 [token]
             );
         }
-    }
-
-    export namespace Guild {
+        // fuck discord, update ur fucking docs to actual info
         /**
-         * Get info about guild with specified `guildId`
+         * Get current user guild member. Check discord docs for more info. https://discord.com/developers/docs/resources/user#get-current-user-guild-member
          * @param token
          * @param guildId
-         * @param with_counts If true, will also return `approximate_member_count` and `approximate_presence_count` for the guild.
          */
-        export async function getGuild(token: string, guildId: string, with_counts: boolean = false): Promise<DiscordApiResult> {
+        export async function getCurrentUserGuildMember(token: string, guildId: string) {
             return await DiscordApiCore.fetch(
-                `/guilds/${guildId}?with_counts=${with_counts}`,
+                `/users/@me/guilds/${guildId}/member`,
                 "GET",
                 {},
                 [token]
-                )
+            )
         }
     }
+
+    // export namespace Guild {
+    //     /**
+    //      * Get info about guild with specified `guildId`
+    //      * @param token
+    //      * @param guildId
+    //      * @param with_counts If true, will also return `approximate_member_count` and `approximate_presence_count` for the guild.
+    //      */
+    //     export async function getGuild(token: string, guildId: string, with_counts: boolean = false): Promise<DiscordApiResult> {
+    //         return await DiscordApiCore.fetch(
+    //             `/guilds/${guildId}?with_counts=${with_counts}`,
+    //             "GET",
+    //             {},
+    //             [token]
+    //             )
+    //     }
+    // }
 }
 
 // export class DiscordOAuth {
