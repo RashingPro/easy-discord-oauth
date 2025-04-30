@@ -17,7 +17,7 @@ import DiscordOAuth from "@rashingpro/easy-discord-oauth";
 To join beta testing go to my [discord server](https://discord.gg/AbDzDG5EE5) -> `#testing`  
 
 ## 📔 Using
-> [!NOTE]
+> [!TIP]
 > Don't be afraid to ask for help! You can do it in [GitHub issues](https://github.com/RashingPro/easy-discord-oauth/issues) or my [discord server](https://discord.gg/AbDzDG5EE5)
 
 ### Exchanging code
@@ -42,7 +42,7 @@ class DiscordApiResult {
 > [!NOTE]
 > Package's methods newer throw an exception. Instead they return status `error`
 > 
-> In most cases, if status is error then data contains `error` key with description of error
+> In most cases, if status is error then data contains `error` key with description of an error
 
 ### Getting user
 For example let's get info about current user. It's requires `identify` scope.
