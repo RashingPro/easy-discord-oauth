@@ -20,6 +20,7 @@ Beta testing will be available later. Z-z-z
 > [!NOTE]
 > Don't be afraid to ask for help! You can do it in [GitHub issues](https://github.com/RashingPro/easy-discord-oauth/issues) or my [discord server](https://discord.gg/AbDzDG5EE5)
 
+### Exchanging code
 First of all, you need to receive Discord OAuth code. Navigate to [Discord docs](https://discord.com/developers/docs/topics/oauth2) for more info  
 To get token use:
 ```typescript
@@ -40,4 +41,12 @@ class DiscordApiResult {
 > [!NOTE]
 > Package's methods newer throw an exception. Instead they return status `error`
 > 
-> In most cases, if status is error then data contains `error` key with description of error  
+> In most cases, if status is error then data contains `error` key with description of error
+
+### Getting user
+For example let's get info about current user. It's requires `identify` scope.
+```typescript
+const userRes = await DiscordOAuth.User.getCurrentUser("token")
+```
+> [!TIP]
+> Organization of namespaces in `DiscordOAuth` is according to Discord docs navigation. For example `Get current user guilds` method is in User tab ([here](https://discord.com/developers/docs/resources/user#get-current-user-guilds)), so package's method will be `DiscordOAuth.User.getCurrentUserGuilds()`
