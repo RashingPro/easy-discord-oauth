@@ -14,7 +14,7 @@ import DiscordOAuth from "@rashingpro/easy-discord-oauth";
 ```
 
 ### ⚠ Beta test
-Beta testing will be available later. Z-z-z
+To join beta testing go to my [discord server](https://discord.gg/AbDzDG5EE5) -> `#testing`  
 
 ## 📔 Using
 > [!NOTE]
