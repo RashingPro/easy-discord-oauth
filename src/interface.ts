@@ -67,7 +67,7 @@ export namespace DiscordOAuth {
      * @param tokenType token_type_hint
      */
     export async function revokeToken(token: string, clientId: string, clientSecret: string, tokenType?: "access_token" | "refresh_token", ) {
-        const res = await DiscordApiCore.fetch(
+        await DiscordApiCore.fetch(
             "/oauth/token/revoke",
             "POST",
             {
