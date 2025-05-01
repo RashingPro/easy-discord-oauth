@@ -1,4 +1,4 @@
-import {DiscordApiError} from "./types";
+import {DiscordApiError} from "./types.js";
 
 const DISCORD_API_URL = "https://discord.com/api/"
 

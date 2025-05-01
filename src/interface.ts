@@ -1,5 +1,5 @@
 import {DiscordApiCore} from "./core.js";
-import {TokenResponse, User} from "./types";
+import {TokenResponse, User} from "./types.js";
 
 export namespace DiscordOAuth {
     /**

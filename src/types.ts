@@ -47,7 +47,7 @@ export interface User extends DiscordApiResponse {
     readonly system?: boolean;
     readonly mfaEnabled?: boolean;
     readonly banner?: string | null;
-    readonly accentColor?: string | null;
+    readonly accentColor?: number | null;
     readonly locale?: string;
     readonly verified?: boolean;
     readonly email?: string | null;
