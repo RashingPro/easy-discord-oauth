@@ -1,5 +1,5 @@
 import {DiscordApiCore} from "./core.js";
-import {TokenResponse, User} from "./types";
+import {GuildMember, PartialGuild, TokenResponse, User} from "./types.js";
 
 export namespace DiscordOAuth {
     /**
@@ -40,8 +40,18 @@ export namespace DiscordOAuth {
          * @return {Promise<User>} info about current user
          */
         export async function getCurrentUser(token: string) {
+            return getUser(token, "@me")
+        }
+
+        /**
+         * Get info about user with specified `userId`
+         * @param token
+         * @param userId
+         * @return {Promise<User>} info about user
+         */
+        export async function getUser(token: string, userId: string) {
             const res = await DiscordApiCore.fetch(
-                "/users/@me",
+                `/users/${userId}`,
                 "GET",
                 {},
                 [token]
@@ -69,30 +79,28 @@ export namespace DiscordOAuth {
         }
 
         /**
-         * Get info about user with specified `userId`
-         * @param token
-         * @param userId
-         */
-        export async function getUser(token: string, userId: string) {
-            return await DiscordApiCore.fetch(
-                `/users/${userId}`,
-                "GET",
-                {},
-                [token]
-            );
-        }
-
-        /**
          * Get current user's guilds list. Maximum is 200 guilds. Read more info here https://discord.com/developers/docs/resources/user#get-current-user-guilds
          * @param token
          */
         export async function getCurrentUserGuilds(token: string) {
-            return await DiscordApiCore.fetch(
+            const res = await DiscordApiCore.fetch(
                 "/users/@me/guilds",
                 "GET",
                 {},
                 [token]
             )
+            const result: PartialGuild = {
+                id: res["id"],
+                name: res["name"],
+                icon: res["icon"],
+                banner: res["banner"],
+                owner: res["owner"],
+                permissions: res["permissions"],
+                features: res["features"],
+                approximateMemberCount: res["approximate_member_count"],
+                approximatePresenceCount: res["approximate_presence_count"]
+            }
+            return result;
         }
 
         // fuck discord, update ur fucking docs to actual info
@@ -101,14 +109,32 @@ export namespace DiscordOAuth {
          * Check discord docs for more info. https://discord.com/developers/docs/resources/user#get-current-user-guild-member
          * @param token
          * @param guildId
+         * @returns {Promise<GuildMember>}
          */
         export async function getCurrentUserGuildMember(token: string, guildId: string) {
-            return await DiscordApiCore.fetch(
+            const res = await DiscordApiCore.fetch(
                 `/users/@me/guilds/${guildId}/member`,
                 "GET",
                 {},
                 [token]
             )
+            const result: GuildMember = {
+                user: res["user"],
+                nick: res["nick"],
+                avatar: res["avatar"],
+                banner: res["banner"],
+                roles: res["roles"],
+                joinedAt: res["joined_at"],
+                premiumSince: res["premium_since"],
+                deaf: res["deaf"],
+                mute: res["mute"],
+                flags: res["flags"],
+                pending: res["pending"],
+                permissions: res["permissions"],
+                communicationDisabledUntil: res["communication_disabled_until"],
+                avatarDecorationData: res["avatar_decoration_data"]
+            }
+            return result;
         }
     }
 }
