@@ -35,7 +35,7 @@ export namespace DiscordOAuth {
     export async function refreshToken(refresh_token: string, clientId: string, clientSecret: string) {
         const res = await DiscordApiCore.fetch(
             "/oauth2/token",
-            "GET",
+            "POST",
             {
                 "grant_type": "refresh_token",
                 "refresh_token": refresh_token
