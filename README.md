@@ -7,10 +7,10 @@
 ## 📲 Installation
 ### ✅ Stable release
 ```bash
-npm i @rashingpro/easy-discord-oauth
+npm i easy-discord-oauth
 ```
 ```typescript
-import DiscordOAuth from "@rashingpro/easy-discord-oauth";
+import DiscordOAuth from "easy-discord-oauth";
 ```
 
 ### ⚠ Beta test
