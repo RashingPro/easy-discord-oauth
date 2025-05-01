@@ -32,6 +32,12 @@ export namespace DiscordOAuth {
         return result;
     }
 
+    /**
+     * Refresh access token using refresh one. https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-refresh-token-exchange-example
+     * @param refresh_token don't miss with access token!
+     * @param clientId
+     * @param clientSecret
+     */
     export async function refreshToken(refresh_token: string, clientId: string, clientSecret: string) {
         const res = await DiscordApiCore.fetch(
             "/oauth2/token",
@@ -51,6 +57,26 @@ export namespace DiscordOAuth {
             scope: res["scope"]
         }
         return result;
+    }
+
+    /**
+     * https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-token-revocation-example
+     * @param token
+     * @param clientId
+     * @param clientSecret
+     * @param tokenType token_type_hint
+     */
+    export async function revokeToken(token: string, clientId: string, clientSecret: string, tokenType?: "access_token" | "refresh_token", ) {
+        const res = await DiscordApiCore.fetch(
+            "/oauth/token/revoke",
+            "POST",
+            {
+                "token": token,
+                "token_type_hint": tokenType
+            },
+            [clientId, clientSecret],
+            "Basic"
+        )
     }
 
     export namespace User {
