@@ -32,6 +32,27 @@ export namespace DiscordOAuth {
         return result;
     }
 
+    export async function refreshToken(refresh_token: string, clientId: string, clientSecret: string) {
+        const res = await DiscordApiCore.fetch(
+            "/oauth2/token",
+            "GET",
+            {
+                "grant_type": "refresh_token",
+                "refresh_token": refresh_token
+            },
+            [clientId, clientSecret],
+            "Basic"
+        )
+        const result: TokenResponse = {
+            accessToken: res["access_token"],
+            refreshToken: res["refresh_token"],
+            expiresIn: res["expires_in"],
+            tokenType: "Bearer",
+            scope: res["scope"]
+        }
+        return result;
+    }
+
     export namespace User {
 
         /**
