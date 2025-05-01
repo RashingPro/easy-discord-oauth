@@ -1,4 +1,5 @@
-import {DiscordApiCore, DiscordApiResponses} from "./core.js";
+import {DiscordApiCore} from "./core.js";
+import {TokenResponse, User} from "./types";
 
 export namespace DiscordOAuth {
     /**
@@ -7,7 +8,7 @@ export namespace DiscordOAuth {
      * @param {string} redirectUri must be equal to redirect uri that was selected when generate OAuth link
      * @param {string} clientId app's client id
      * @param {string} clientSecret app's client secret
-     * @returns {Promise<DiscordApiResponses.TokenResponse>} read discord docs for more info about API response
+     * @returns {Promise<TokenResponse>} read discord docs for more info about API response
      */
     export async function exchangeCode(code: string, redirectUri: string, clientId: string, clientSecret: string) {
         const res = await DiscordApiCore.fetch(
@@ -21,20 +22,22 @@ export namespace DiscordOAuth {
             [clientId, clientSecret],
             'Basic'
         );
-        const accessToken = res?.["access_token"]
-        const expiresIn = res?.["expires_in"]
-        const refreshToken = res?.["refresh_token"]
-        const scope = res?.["scope"]
-        return new DiscordApiResponses.TokenResponse(accessToken, expiresIn, refreshToken, scope)
+        const result: TokenResponse = {
+            accessToken: res["access_token"],
+            refreshToken: res["refresh_token"],
+            expiresIn: res["expires_in"],
+            scope: res["scope"],
+            tokenType: "Bearer"
+        }
+        return result;
     }
 
     export namespace User {
-        import DiscordApiError = DiscordApiResponses.DiscordApiError;
 
         /**
          * Get info about current user. Require `identify` scope. Optionally, if app was authorised with `email` scope - email will be also provided
          * @param {string} token
-         * @return {Promise<DiscordApiResponses.User>} info about current user
+         * @return {Promise<User>} info about current user
          */
         export async function getCurrentUser(token: string) {
             const res = await DiscordApiCore.fetch(
@@ -43,25 +46,26 @@ export namespace DiscordOAuth {
                 {},
                 [token]
             );
-            return new DiscordApiResponses.User(
-                res["id"],
-                res["username"],
-                res["discriminator"],
-                res["global_name"],
-                res["avatar"],
-                res["bot"],
-                res["system"],
-                res["mfa_enabled"],
-                res["banner"],
-                res["accent_color"],
-                res["locale"],
-                res["verified"],
-                res["email"],
-                res["flags"],
-                res["premium_type"],
-                res["public_flags"],
-                res["avatar_decoration_data"]
-            )
+            const result: User = {
+                id: res["id"],
+                username: res["username"],
+                discriminator: res["discriminator"],
+                globalName: res["global_name"],
+                avatar: res["avatar"],
+                bot: res["bot"],
+                system: res["system"],
+                mfaEnabled: res["mfa_enabled"],
+                banner: res["banner"],
+                accentColor: res["accent_color"],
+                locale: res["locale"],
+                verified: res["verified"],
+                email: res["email"],
+                flags: res["flags"],
+                premiumType: res["premium_type"],
+                publicFlags: res["public_flags"],
+                avatarDecorationData: res["avatar_decoration_data"]
+            }
+            return result;
         }
 
         /**
