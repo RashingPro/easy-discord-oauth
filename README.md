@@ -30,24 +30,13 @@ const tokenRes = await DiscordOAuth.exchangeCode(
     "client id",
     "client secret"
 )
-const token = tokenRes.data["access_token"]
+const token = tokenRes.accessToken
 ```
-This (and any other method in package) returns object of class `DiscordApiResult`:
-```typescript
-class DiscordApiResult {
-    public readonly status: "success" | "error";
-    public readonly data?: { [key: string]: any };
-}
-```
-> [!NOTE]
-> Package's methods newer throw an exception. Instead they return status `error`
-> 
-> In most cases, if status is error then data contains `error` key with description of an error
-
 ### Getting user
-For example let's get info about current user. It's requires `identify` scope.
+For example let's get info about current user and log username. It's requires `identify` scope.
 ```typescript
-const userRes = await DiscordOAuth.User.getCurrentUser("token")
+const user = await DiscordOAuth.User.getCurrentUser("token")
+console.log(user.username)
 ```
 > [!TIP]
 > Organization of namespaces in `DiscordOAuth` is according to Discord docs navigation. For example `Get current user guilds` method is in User tab ([here](https://discord.com/developers/docs/resources/user#get-current-user-guilds)), so package's method will be `DiscordOAuth.User.getCurrentUserGuilds()`
