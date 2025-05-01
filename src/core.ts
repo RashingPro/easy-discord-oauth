@@ -9,6 +9,35 @@ export class DiscordApiResult {
     }
 }
 
+interface DiscordApiResponse {
+
+}
+
+export namespace DiscordApiResponses {
+    export class DiscordApiError extends Error {
+        public readonly httpStatus: number;
+        constructor(httpStatus: number) {
+            super();
+            this.httpStatus = httpStatus;
+        }
+    }
+
+    export class TokenResponse implements DiscordApiResponse{
+        public readonly accessToken: string;
+        public readonly tokenType: "Bearer";
+        public readonly expiresIn: number;
+        public readonly refreshToken: string;
+        public readonly scope: string;
+        constructor(accessToken: string, expiresIn: number, refreshToken: string, scope: string) {
+            this.accessToken = accessToken;
+            this.tokenType = "Bearer";
+            this.expiresIn = expiresIn;
+            this.refreshToken = refreshToken;
+            this.scope = scope;
+        }
+    }
+}
+
 export class DiscordApiCore {
     public static async fetch(
         apiEndpoint: string,

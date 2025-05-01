@@ -1,4 +1,4 @@
-import {DiscordApiCore, DiscordApiResult} from "./core.js";
+import {DiscordApiCore, DiscordApiResponses} from "./core.js";
 
 export namespace DiscordOAuth {
     /**
@@ -9,8 +9,8 @@ export namespace DiscordOAuth {
      * @param {string} clientSecret app's client secret
      * @returns {Promise<DiscordApiResult>} read discord docs for more info about API response
      */
-    export async function exchangeCode(code: string, redirectUri: string, clientId: string, clientSecret: string): Promise<DiscordApiResult> {
-        return await DiscordApiCore.fetch(
+    export async function exchangeCode(code: string, redirectUri: string, clientId: string, clientSecret: string) {
+        const res = await DiscordApiCore.fetch(
             "/oauth2/token",
             "POST",
             {
@@ -21,6 +21,14 @@ export namespace DiscordOAuth {
             [clientId, clientSecret],
             'Basic'
         );
+        const accessToken = res.data?.["access_token"]
+        const expiresIn = res.data?.["expires_in"]
+        const refreshToken = res.data?.["refresh_token"]
+        const scope = res.data?.["scope"]
+        if (res.status == "success" && accessToken && expiresIn && refreshToken && scope) {
+            return new DiscordApiResponses.TokenResponse(accessToken, expiresIn, refreshToken, scope)
+        }
+
     }
 
     export namespace User {
@@ -29,7 +37,7 @@ export namespace DiscordOAuth {
          * @param {string} token
          * @return {Promise<DiscordApiResult>} info about current user
          */
-        export async function getCurrentUser(token: string): Promise<DiscordApiResult> {
+        export async function getCurrentUser(token: string) {
             return await DiscordApiCore.fetch(
                 "/users/@me",
                 "GET",
@@ -43,7 +51,7 @@ export namespace DiscordOAuth {
          * @param token
          * @param userId
          */
-        export async function getUser(token: string, userId: string): Promise<DiscordApiResult> {
+        export async function getUser(token: string, userId: string) {
             return await DiscordApiCore.fetch(
                 `/users/${userId}`,
                 "GET",
@@ -56,7 +64,7 @@ export namespace DiscordOAuth {
          * Get current user's guilds list. Maximum is 200 guilds. Read more info here https://discord.com/developers/docs/resources/user#get-current-user-guilds
          * @param token
          */
-        export async function getCurrentUserGuilds(token: string): Promise<DiscordApiResult> {
+        export async function getCurrentUserGuilds(token: string) {
             return await DiscordApiCore.fetch(
                 "/users/@me/guilds",
                 "GET",
@@ -81,47 +89,4 @@ export namespace DiscordOAuth {
             )
         }
     }
-
-    // export namespace Guild {
-    //     /**
-    //      * Get info about guild with specified `guildId`
-    //      * @param token
-    //      * @param guildId
-    //      * @param with_counts If true, will also return `approximate_member_count` and `approximate_presence_count` for the guild.
-    //      */
-    //     export async function getGuild(token: string, guildId: string, with_counts: boolean = false): Promise<DiscordApiResult> {
-    //         return await DiscordApiCore.fetch(
-    //             `/guilds/${guildId}?with_counts=${with_counts}`,
-    //             "GET",
-    //             {},
-    //             [token]
-    //             )
-    //     }
-    // }
 }
-
-// export class DiscordOAuth {
-//     /**
-//      *
-//      * @param {string} code code got from discord auth url
-//      * @param {string} redirectUri must be equal to redirect uri that was selected when generate OAuth link
-//      * @param {string} clientId app's client id
-//      * @param {string} clientSecret app's client secret
-//      * @returns {Promise<DiscordApiResult>} read discord docs for more info about API response
-//      */
-//     public static async exchangeCode(code: string, redirectUri: string, clientId: string, clientSecret: string): Promise<DiscordApiResult> {
-//         return await DiscordApiCore.fetch(
-//             "/oauth2/token",
-//             "POST",
-//             {
-//                 'grant_type': 'authorization_code',
-//                 'code': code,
-//                 'redirect_uri': redirectUri
-//             },
-//             [clientId, clientSecret],
-//             'Basic'
-//         );
-//     }
-//
-//
-// }
