@@ -39,6 +39,64 @@ export namespace DiscordApiResponses {
             this.scope = scope;
         }
     }
+
+    export class User implements DiscordApiResponse {
+        public readonly id: string;
+        public readonly username: string;
+        public readonly discriminator: string;
+        public readonly globalName: string | null;
+        public readonly avatar: string | null;
+        public readonly bot?: boolean;
+        public readonly system?: boolean;
+        public readonly mfaEnabled?: boolean;
+        public readonly banner?: string | null;
+        public readonly accentColor?: string | null;
+        public readonly locale?: string;
+        public readonly verified?: boolean;
+        public readonly email?: string | null;
+        public readonly flags?: number;
+        public readonly premiumType?: number;
+        public readonly publicFlags?: number;
+        public readonly avatarDecorationData?: object;
+
+        constructor(
+            id: string,
+            username: string,
+            discriminator: string,
+            globalName: string | null,
+            avatar: string | null,
+            bot?: boolean,
+            system?: boolean,
+            mfaEnabled?: boolean,
+            banner?: string | null,
+            accentColor?: string | null,
+            locale?: string,
+            verified?: boolean,
+            email?: string | null,
+            flags?: number,
+            premiumType?: number,
+            publicFlags?: number,
+            avatarDecorationData?: object
+        ) {
+            this.id = id;
+            this.username = username;
+            this.discriminator = discriminator;
+            this.globalName = globalName;
+            this.avatar = avatar;
+            this.bot = bot;
+            this.system = system;
+            this.mfaEnabled = mfaEnabled;
+            this.banner = banner;
+            this.accentColor = accentColor;
+            this.locale = locale;
+            this.verified = verified;
+            this.email = email;
+            this.flags = flags;
+            this.premiumType = premiumType;
+            this.publicFlags = publicFlags;
+            this.avatarDecorationData = avatarDecorationData;
+        }
+    }
 }
 
 export class DiscordApiCore {

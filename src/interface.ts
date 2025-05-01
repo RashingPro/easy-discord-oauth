@@ -21,26 +21,47 @@ export namespace DiscordOAuth {
             [clientId, clientSecret],
             'Basic'
         );
-        const accessToken = res.data?.["access_token"]
-        const expiresIn = res.data?.["expires_in"]
-        const refreshToken = res.data?.["refresh_token"]
-        const scope = res.data?.["scope"]
+        const accessToken = res?.["access_token"]
+        const expiresIn = res?.["expires_in"]
+        const refreshToken = res?.["refresh_token"]
+        const scope = res?.["scope"]
         return new DiscordApiResponses.TokenResponse(accessToken, expiresIn, refreshToken, scope)
     }
 
     export namespace User {
+        import DiscordApiError = DiscordApiResponses.DiscordApiError;
+
         /**
          * Get info about current user. Require `identify` scope. Optionally, if app was authorised with `email` scope - email will be also provided
          * @param {string} token
-         * @return {Promise<DiscordApiResult>} info about current user
+         * @return {Promise<DiscordApiResponses.User>} info about current user
          */
         export async function getCurrentUser(token: string) {
-            return await DiscordApiCore.fetch(
+            const res = await DiscordApiCore.fetch(
                 "/users/@me",
                 "GET",
                 {},
                 [token]
             );
+            return new DiscordApiResponses.User(
+                res["id"],
+                res["username"],
+                res["discriminator"],
+                res["global_name"],
+                res["avatar"],
+                res["bot"],
+                res["system"],
+                res["mfa_enabled"],
+                res["banner"],
+                res["accent_color"],
+                res["locale"],
+                res["verified"],
+                res["email"],
+                res["flags"],
+                res["premium_type"],
+                res["public_flags"],
+                res["avatar_decoration_data"]
+            )
         }
 
         /**
