@@ -1,14 +1,5 @@
 const DISCORD_API_URL = "https://discord.com/api/"
 
-export class DiscordApiResult {
-    public readonly status: "success" | "error";
-    public readonly data?: { [key: string]: any };
-    constructor(status: "success" | "error", data?: {}) {
-        this.status = status;
-        if (data) this.data = data;
-    }
-}
-
 interface DiscordApiResponse {
 
 }
@@ -16,9 +7,21 @@ interface DiscordApiResponse {
 export namespace DiscordApiResponses {
     export class DiscordApiError extends Error {
         public readonly httpStatus: number;
-        constructor(httpStatus: number) {
+        public readonly endpoint: string;
+        public readonly method;
+        public readonly data?: {};
+        public readonly auth?: string[];
+        public readonly apiVersion: number;
+
+        constructor(httpStatus: number, endpoint: string, method: "GET" | "POST" | "PUT" | "PATCH", data: {} | undefined, auth: string[] | undefined, apiVersion: number) {
             super();
             this.httpStatus = httpStatus;
+            this.endpoint = endpoint;
+            this.method = method;
+            this.data = data;
+            this.auth = auth;
+            this.apiVersion = apiVersion;
+            super.message = "An error occured while fetching from Discord API"
         }
     }
 
@@ -41,13 +44,14 @@ export namespace DiscordApiResponses {
 export class DiscordApiCore {
     public static async fetch(
         apiEndpoint: string,
-        method: "GET" | "POST" | "PATCH" = "GET",
+        method: "GET" | "POST" | "PUT" | "PATCH" = "GET",
         data?: {},
         auth?: string[],
         authType: "Basic" | "Bearer" = "Bearer",
         apiVersion: number = 10,
         contentType: string = "application/x-www-form-urlencoded",
     ) {
+        let status = 200;
         try {
             const url = DISCORD_API_URL + `v${apiVersion.toString()}` + apiEndpoint;
 
@@ -77,13 +81,21 @@ export class DiscordApiCore {
                 headers: headers,
                 body: body ? body : undefined
             });
+            status = response.status;
             const res_data = await response.json();
             if (!response.ok) {
-                return new DiscordApiResult("error", {"error": response.statusText});
+                throw new Error();
             }
-            return new DiscordApiResult("success", res_data);
+            return res_data
         } catch (error) {
-            return new DiscordApiResult("error", {"error": error});
+            throw new DiscordApiResponses.DiscordApiError(
+                status,
+                apiEndpoint,
+                method,
+                data,
+                auth,
+                apiVersion
+            );
         }
     }
 }

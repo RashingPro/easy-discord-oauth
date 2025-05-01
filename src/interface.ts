@@ -7,7 +7,7 @@ export namespace DiscordOAuth {
      * @param {string} redirectUri must be equal to redirect uri that was selected when generate OAuth link
      * @param {string} clientId app's client id
      * @param {string} clientSecret app's client secret
-     * @returns {Promise<DiscordApiResult>} read discord docs for more info about API response
+     * @returns {Promise<DiscordApiResponses.TokenResponse>} read discord docs for more info about API response
      */
     export async function exchangeCode(code: string, redirectUri: string, clientId: string, clientSecret: string) {
         const res = await DiscordApiCore.fetch(
@@ -25,10 +25,7 @@ export namespace DiscordOAuth {
         const expiresIn = res.data?.["expires_in"]
         const refreshToken = res.data?.["refresh_token"]
         const scope = res.data?.["scope"]
-        if (res.status == "success" && accessToken && expiresIn && refreshToken && scope) {
-            return new DiscordApiResponses.TokenResponse(accessToken, expiresIn, refreshToken, scope)
-        }
-
+        return new DiscordApiResponses.TokenResponse(accessToken, expiresIn, refreshToken, scope)
     }
 
     export namespace User {
