@@ -12,7 +12,21 @@ export class DiscordApiError extends Error {
         this.endpoint = endpoint;
         this.method = method;
         this.data = data;
-        this.auth = auth;
+        let _auth: string[] = [];
+        if (auth) {
+            auth.forEach((val) => {
+                if (val.length >= 20) {
+                    _auth.push(val.slice(0, 9) + "***" + val.slice(-9))
+                }
+                else if (val.length >= 3) {
+                    _auth.push(val[0] + '***' + val[val.length - 1])
+                }
+                else {
+                    _auth.push(val)
+                }
+            })
+        }
+        this.auth = _auth;
         this.apiVersion = apiVersion;
         super.message = "An error occured while fetching from Discord API"
     }
