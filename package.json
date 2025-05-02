@@ -1,12 +1,14 @@
 {
   "name": "easy-discord-oauth",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Working with Discord OAuth has never been so easy!",
   "keywords": [
     "discord",
     "oauth",
     "api",
-    "typescript"
+    "typescript",
+    "ts",
+    "types"
   ],
   "repository": {
     "type": "git",

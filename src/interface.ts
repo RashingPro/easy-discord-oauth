@@ -136,17 +136,22 @@ export namespace DiscordOAuth {
                 {},
                 [token]
             )
-            const result: PartialGuild = {
-                id: res["id"],
-                name: res["name"],
-                icon: res["icon"],
-                banner: res["banner"],
-                owner: res["owner"],
-                permissions: res["permissions"],
-                features: res["features"],
-                approximateMemberCount: res["approximate_member_count"],
-                approximatePresenceCount: res["approximate_presence_count"]
-            }
+            let result: PartialGuild[] = []
+            res.forEach((val: { [key: string]: any }) => {
+                console.log(val["owner"])
+                const _g: PartialGuild = {
+                    id: val["id"],
+                    name: val["name"],
+                    icon: val["icon"],
+                    banner: val["banner"],
+                    owner: val["owner"],
+                    permissions: val["permissions"],
+                    features: val["features"],
+                    approximateMemberCount: val["approximate_member_count"],
+                    approximatePresenceCount: val["approximate_presence_count"]
+                }
+                result.push(_g)
+            })
             return result;
         }
 
