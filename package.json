@@ -1,6 +1,6 @@
 {
   "name": "easy-discord-oauth",
-  "version": "1.0.2",
+  "version": "2.0.0-alpha",
   "description": "Working with Discord OAuth has never been so easy!",
   "keywords": [
     "discord",
@@ -10,13 +10,21 @@
     "ts",
     "types"
   ],
+  "homepage": "https://github.com/RashingPro/easy-discord-oauth",
+  "bugs": {
+    "url": "https://github.com/RashingPro/easy-discord-oauth/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RashingPro/easy-discord-oauth.git"
   },
   "license": "GPL-3.0",
-  "author": "Rashing",
-  "type": "module",
+  "author": {
+    "name": "Rashing",
+    "url": "https://rashing.pro",
+    "email": "contact@rashing.pro"
+  },
+  "type": "commonjs",
   "scripts": {
     "build": "tsc"
   },
@@ -27,5 +35,6 @@
     "typescript": "^5.8.3"
   },
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts"
 }

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "ESNext",
+    "target": "ES2020",
+    "module": "CommonJS",
     "outDir": "dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -9,9 +9,10 @@
     "skipLibCheck": true,
     "declaration": true
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "exclude": [
-    "node_modules",
-    "dist"
+    "node_modules"
   ]
 }
