@@ -14,7 +14,10 @@ import DiscordOAuth from "easy-discord-oauth";
 ```
 
 ### ⚠ Beta test
-To join beta testing go to my [discord server](https://discord.gg/AbDzDG5EE5) -> `#testing`  
+~~To join beta testing go to my [discord server](https://discord.gg/AbDzDG5EE5) -> `#testing`~~  
+1. Download alpha version via `npm i easy-discord-oauth@alpha`
+2. Use it as usual
+3. Report any bugs via issues
 
 ## 📔 Using
 > [!TIP]
