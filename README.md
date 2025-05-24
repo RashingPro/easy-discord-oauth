@@ -13,16 +13,6 @@ npm i easy-discord-oauth
 import DiscordOAuth from "easy-discord-oauth";
 ```
 
-### ⚠ Beta test
-<<<<<<< HEAD
-~~To join beta testing go to my [discord server](https://discord.gg/AbDzDG5EE5) -> `#testing`~~  
-=======
-~~To join beta testing go to my [discord server](https://discord.gg/AbDzDG5EE5) -> `#testing`~~
->>>>>>> v2-migration
-1. Download alpha version via `npm i easy-discord-oauth@alpha`
-2. Use it as usual
-3. Report any bugs via issues
-
 ## 📔 Using
 > [!TIP]
 > Don't be afraid to ask for help! You can do it in [GitHub issues](https://github.com/RashingPro/easy-discord-oauth/issues) or my [discord server](https://discord.gg/AbDzDG5EE5)
