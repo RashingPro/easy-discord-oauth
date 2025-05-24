@@ -7,7 +7,7 @@ export class DiscordApiCore {
         apiEndpoint: string,
         method: "GET" | "POST" | "PUT" | "PATCH" = "GET",
         data?: {},
-        auth?: string[],
+        auth?: string | string[],
         authType: "Basic" | "Bearer" = "Bearer",
         apiVersion: number = 10,
         contentType: string = "application/x-www-form-urlencoded",
@@ -30,12 +30,14 @@ export class DiscordApiCore {
             const headers = new Headers();
             headers.append("Content-Type", contentType);
             if (auth) {
-                if (authType === "Basic") {
+                if (authType === "Basic" && typeof auth === "object") {
                     headers.append('Authorization', `Basic ` + btoa(auth.join(':')));
-                } else {
+                } else if (authType === "Bearer" && typeof auth === "string") {
                     headers.append('Authorization', `Bearer ` + auth[0]);
                 }
-
+                else {
+                    throw new Error("Incorrect authorization data provided")
+                }
             }
             const response = await fetch(url, {
                 method: method,

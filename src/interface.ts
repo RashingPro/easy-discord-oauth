@@ -101,7 +101,7 @@ export namespace DiscordOAuth {
                 `/users/${userId}`,
                 "GET",
                 {},
-                [token]
+                token
             );
             const result: User = {
                 id: res["id"],
@@ -134,7 +134,7 @@ export namespace DiscordOAuth {
                 "/users/@me/guilds",
                 "GET",
                 {},
-                [token]
+                token
             )
             let result: PartialGuild[] = []
             res.forEach((val: { [key: string]: any }) => {
@@ -168,7 +168,7 @@ export namespace DiscordOAuth {
                 `/users/@me/guilds/${guildId}/member`,
                 "GET",
                 {},
-                [token]
+                token
             )
             const result: GuildMember = {
                 user: res["user"],
