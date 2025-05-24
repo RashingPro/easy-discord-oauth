@@ -24,8 +24,8 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **System (please complete the following information):**
- - Package version (use `npm list` and find `easy-discord-oauth` in list)
- - Are you using plain JavaScript or TypeScript
+ - Package version (use `npm list` and find `easy-discord-oauth`)
+ - Are you using JavaScript or TypeScript
  - Value `type` from `package.json`
  - Values `target` and `module` from `tsconfig.json` (if applicable)
 

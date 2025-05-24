@@ -1,5 +1,5 @@
-import {DiscordApiCore} from "./core.js";
-import {GuildMember, PartialGuild, TokenResponse, User} from "./types.js";
+import {DiscordApiCore} from "./core";
+import {GuildMember, PartialGuild, TokenResponse, User} from "./types";
 
 export namespace DiscordOAuth {
     /**
