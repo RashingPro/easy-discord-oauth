@@ -26,9 +26,13 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "style": "prettier . --write"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-unused-imports-configurable": "^1.15.0",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },
