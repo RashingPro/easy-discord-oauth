@@ -1,42 +1,13 @@
 export class DiscordApiError extends Error {
-    public readonly httpStatus: number;
-    public readonly endpoint: string;
-    public readonly method;
-    public readonly data?: {};
-    public readonly auth?: string | string[];
-    public readonly apiVersion: number;
-
-    constructor(httpStatus: number, endpoint: string, method: "GET" | "POST" | "PUT" | "PATCH", data: {} | undefined, auth: string | string[] | undefined, apiVersion: number) {
-        super();
-        this.httpStatus = httpStatus;
-        this.endpoint = endpoint;
-        this.method = method;
-        this.data = data;
-        let _auth: string[] = [];
-        if (auth) {
-            const short = (val: string) => {
-                if (val.length >= 20) {
-                    return val.slice(0, 9) + "***" + val.slice(-9)
-                }
-                else if (val.length >= 3) {
-                    return val[0] + '***' + val[val.length - 1]
-                }
-                else {
-                    return val
-                }
-            }
-            if (typeof auth === "object") {
-                _auth = []
-                auth.forEach((val) => {
-                    _auth.push(short(val))
-                })
-                this.auth = _auth;
-            } else {
-                this.auth = short(auth)
-            }
-        }
-        this.apiVersion = apiVersion;
-        super.message = "An error occured while fetching from Discord API"
+    constructor(
+        public readonly endpoint: string,
+        public readonly method: "GET" | "POST" | "PUT" | "PATCH",
+        public readonly body: {} | undefined,
+        public readonly apiVersion: number,
+        public readonly httpStatus?: number,
+        public readonly error?: Error
+    ) {
+        super("An error occurred while fetching from Discord API");
     }
 }
 
@@ -206,7 +177,7 @@ export interface IncidentsData {
     readonly invitesDisabledUntil: string | null;
     readonly dmsDisabledUntil: string | null;
     readonly dmSpamDetected_at?: string | null;
-    readonly raidDetectedAt?: string | null
+    readonly raidDetectedAt?: string | null;
 }
 
 export interface GuildMember {

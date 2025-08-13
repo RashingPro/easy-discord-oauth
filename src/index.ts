@@ -1,2 +1,2 @@
-import {DiscordOAuth} from "./interface";
+import { DiscordOAuth } from "./interface";
 export default DiscordOAuth;

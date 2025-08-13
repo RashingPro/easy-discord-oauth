@@ -1,6 +1,6 @@
 {
   "name": "easy-discord-oauth",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Working with Discord OAuth has never been so easy!",
   "keywords": [
     "discord",
@@ -24,17 +24,27 @@
     "url": "https://rashing.pro",
     "email": "contact@rashing.pro"
   },
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "build": "tsc"
-  },
-  "dependencies": {
-
+    "build": "tsup",
+    "style": "prettier . --write"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-unused-imports-configurable": "^1.15.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts"
+  "types": "./dist/types.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "dependencies": {
+    "object-key-converter": "^1.0.4"
+  }
 }
