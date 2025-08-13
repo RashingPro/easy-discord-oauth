@@ -5,3 +5,6 @@ tsconfig.json
 .npmrc
 /.idea
 /.github
+/.editorconfig
+/.prettierrc
+tsup.config.ts
