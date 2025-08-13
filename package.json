@@ -1,6 +1,6 @@
 {
   "name": "easy-discord-oauth",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Working with Discord OAuth has never been so easy!",
   "keywords": [
     "discord",
@@ -43,5 +43,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
+  },
+  "dependencies": {
+    "object-key-converter": "^1.0.4"
   }
 }
